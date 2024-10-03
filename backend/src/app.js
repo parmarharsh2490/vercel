@@ -2,24 +2,8 @@ import express from 'express';
 const app = express();
 import multer from 'multer';
 import cors from "cors"
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://vercel-frontend-theta.vercel.app/',
-];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 import path from 'path'; // Ensure this is imported
 
