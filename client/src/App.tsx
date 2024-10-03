@@ -11,7 +11,7 @@ const App = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
-    images.forEach((image, index) => {
+    images.forEach((image : any, index : any) => {
       if (image instanceof File) {
         formData.append(`images[${index}]`, image); // Correct formData usage
       }
