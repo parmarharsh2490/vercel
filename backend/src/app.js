@@ -4,7 +4,7 @@ import multer from 'multer';
 import cors from "cors"
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://cara-omega-six.vercel.app',
+  'https://vercel-frontend-theta.vercel.app/',
 ];
 
 const corsOptions = {

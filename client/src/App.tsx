@@ -18,7 +18,7 @@ const App = () => {
     });
       console.log(formData);
     // await axios.post('https://cara-backend-nine.vercel.app/api/v1/post/create',images)
-    await axios.post('http://localhost:3000/api/v1/post/create', images, {
+    await axios.post('https://vercel-backend-three-psi.vercel.app/api/v1/post/create', images, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
