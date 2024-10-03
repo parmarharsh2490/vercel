@@ -30,9 +30,10 @@ app.get('/', (_, res) => {
 });
 
 app.post("/api/v1/post/create",upload.any(),(req,res) => {
-  console.log("here");
+  console.log("here",req?.file);
+  console.log("here",req?.files);
   
-  res.status(200).json(req?.files)
+  res.status(200)
 })
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
