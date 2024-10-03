@@ -12,9 +12,6 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-console.log({cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET});
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -30,18 +27,22 @@ app.post('/api/v1/post/create', upload.any(), async (req, res) => {
     }
 
     const uploadPromises = req.files.map((file) => {
-      return cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
-        if (error) {
-          throw new Error(error.message);
-        }
-        return result;
-      }).end(file.buffer);
+      return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        });
+        uploadStream.end(file.buffer);
+      });
     });
 
     const uploadResults = await Promise.all(uploadPromises);
-    res.status(200).send(uploadResults);
+    res.status(200).json(uploadResults);
   } catch (error) {
-    console.error('Error during file upload:', error);
+    console.error('Error during file upload:', error.message);
     res.status(500).send('An error occurred during file upload.');
   }
 });
