@@ -1,27 +1,22 @@
 import express from 'express';
-const app = express();
 import multer from 'multer';
-import cors from "cors"
+import cors from 'cors';
+import path from 'path';
 
+const app = express();
 app.use(cors());
-
-import path from 'path'; // Ensure this is imported
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public');
   },
   filename: function (req, file, cb) {
-      cb(null, Date.now() + file.originalname)
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
-
 
 const upload = multer({ storage: storage });
 
@@ -29,14 +24,21 @@ app.get('/', (_, res) => {
   res.send('Hello, world!');
 });
 
-app.post("/api/v1/post/create",upload.any(),(req,res) => {
-  console.log("herr1",req?.file);
-  console.log("here2",req?.files);
-  
-  res.status(200)
-})
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+app.post('/api/v1/post/create', upload.any(), (req, res) => {
+  try {
+    console.log('Files:', req.files);
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+    res.status(200).send('Files uploaded successfully.');
+  } catch (error) {
+    console.error('Error during file upload:', error);
+    res.status(500).send('An error occurred during file upload.');
+  }
 });
 
-  export default app;
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+export default app;
