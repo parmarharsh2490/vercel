@@ -30,8 +30,8 @@ app.get('/', (_, res) => {
 });
 
 app.post("/api/v1/post/create",upload.any(),(req,res) => {
-  console.log("here",req?.file);
-  console.log("here",req?.files);
+  console.log("herr1",req?.file);
+  console.log("here2",req?.files);
   
   res.status(200)
 })
