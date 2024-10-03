@@ -19,11 +19,16 @@ const App = () => {
     });
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/post/create', formData, {
+      const response = await axios.post('https://vercel-backend-three-psi.vercel.app/api/v1/post/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      // const response = await axios.post('http://localhost:3000/api/v1/post/create', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error uploading files:', error);
