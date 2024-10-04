@@ -4,6 +4,11 @@ import cors from 'cors';
 import { v2 as cloudinary } from 'cloudinary';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// Create __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -15,7 +20,7 @@ cloudinary.config({
 });
 
 // Ensure the 'public' directory exists
-const uploadDir = path.join(__dirname, 'tmp');
+const uploadDir = path.join(__dirname, 'public');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
