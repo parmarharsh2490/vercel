@@ -15,7 +15,7 @@ cloudinary.config({
 });
 
 // Ensure the 'public' directory exists
-const uploadDir = path.join(__dirname, 'public');
+const uploadDir = path.join(__dirname, 'tmp');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
