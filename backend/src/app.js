@@ -20,7 +20,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 50 * 1024 * 1024, files: 30 }
+  limits: { fileSize: 50 * 1024 * 1024, files: 55 }
 });
 
 app.get('/', (_, res) => {
