@@ -14,13 +14,19 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// Ensure the 'public' directory exists
+const uploadDir = path.join(__dirname, 'public');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 // Increase payload size limit
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public'); // Ensure this directory exists
+    cb(null, uploadDir); // Use the 'public' directory
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);
