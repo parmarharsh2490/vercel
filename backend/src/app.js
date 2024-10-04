@@ -19,8 +19,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Ensure the 'public' directory exists
-const uploadDir = path.join(__dirname, './tmp');
+// Use the '/tmp' directory for temporary file storage
+const uploadDir = '/tmp';
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -31,7 +31,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDir); // Use the 'public' directory
+    cb(null, uploadDir); // Use the '/tmp' directory
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);
