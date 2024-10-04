@@ -6,9 +6,8 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-// Create __dirname equivalent for ES modules
+// Create __filename equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -26,8 +25,8 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // Increase payload size limit
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '100mb' })); // Increase limit to 100MB
+app.use(express.urlencoded({ limit: '100mb', extended: true })); // Increase limit to 100MB
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -40,7 +39,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 50 * 1024 * 1024, files: 55 } // 50MB limit per file, 55 files
+  limits: { fileSize: 50 * 1024 * 1024, files: 100 } // 50MB limit per file, 100 files
 });
 
 app.get('/', (_, res) => {
