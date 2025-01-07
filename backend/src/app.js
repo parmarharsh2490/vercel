@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/v1/checkTime', async (req, res) => {
   try {
+    return res.send("Hello")
     const users = await Assistant.find({});
     res.status(200).json({ users });
   } catch (error) {
