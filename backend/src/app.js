@@ -3,12 +3,12 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import Assistant from './Assistant.model.js';
+import { dbState } from './utils/dbState.js';
 
 dotenv.config();
 
 const app = express();
-let isConnected = false;
-export {isConnected};
+
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -21,9 +21,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/v1/checkTime', async (req, res) => {
   try {
-    return res.send({isConnected});
-    const users = await Assistant.find({});
-    res.status(200).json({ users });
+    res.status(200).json({ dbStatus: dbState.isConnected });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
