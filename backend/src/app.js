@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import Assistant from './Assistant.model.js';
 import { dbState } from './utils/dbState.js';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -15,16 +16,13 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.send('Server is running!');
 });
 
-app.get('/api/v1/checkTime', async (req, res) => {
-  try {
-    res.status(200).json({ dbStatus: dbState.isConnected });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+app.get('/api/v1/checkTime', async (_, res) => {
+     const data =  await mongoose.connect(process.env.MONGODB_URL);
+    res.status(200).json(JSON.stringify(data.Collection));
 });
 
 export default app;

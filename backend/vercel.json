@@ -2,10 +2,16 @@
   "version": 2,
   "name": "cara-backend",
   "builds": [
-    { "src": "src/app.js", "use": "@vercel/node" }
+    {
+      "src": "src/index.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/src/app.js" }
+    {
+      "src": "/(.*)",
+      "dest": "src/index.js"
+    }
   ],
   "env": {
     "NODE_ENV": "production"
