@@ -8,12 +8,11 @@ const startServer = async () => {
   });
 };
 
-startServer()
-// connectDB()
-//   .then(async () => {
-//     await startServer();
-//   })
-//   .catch((error) => {
-//     console.error("Error connecting to the database:", error);
-//     process.exit(1);
-//   });
+connectDB()
+  .then(async () => {
+    await startServer();
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database:", error);
+    process.exit(1);
+  });

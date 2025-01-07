@@ -21,7 +21,6 @@ app.get('/', (_, res) => {
 });
 
 app.get('/api/v1/checkTime', async (_, res) => {
-    await mongoose.connect(process.env.MONGODB_URL);
     const newData = await Assistant.find({});
     res.status(200).json(JSON.stringify(newData));
 });
